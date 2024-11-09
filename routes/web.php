@@ -25,9 +25,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 require __DIR__ . '/auth.php';
 
-
 // Front Auth Routes
-
 Route::get('/sign-up', function () {
     return view('front.register');
 })->name('register');

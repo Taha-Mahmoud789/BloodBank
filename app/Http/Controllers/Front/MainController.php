@@ -37,7 +37,7 @@ class MainController extends Controller
             $post->is_favourite = $post->clients->isNotEmpty() && $post->clients->first()->pivot->is_favourite;
 
         }
-        
+
         // Prepare other data (e.g., DonationRequests) as needed
         $query = DonationRequest::query();
 
