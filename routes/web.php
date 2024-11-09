@@ -26,16 +26,10 @@ Auth::routes();
 require __DIR__ . '/auth.php';
 
 // Front Auth Routes
-Route::get('/sign-up', function () {
-    return view('front.register');
-})->name('register');
+Route::get('/sign-up', function () {return view('front.register');})->name('register');
 Route::post('/sign-up', [AuthController::class, 'clientRegister'])->name('clientRegister');
 Route::get('/clientLogin', function () {return view('front.login');})->name('clientLogin');
 Route::get('/article-details', function () {return view('front.article-details');})->name('article-details');
-
-Route::get('/donation-details/{id}', [MainController::class, 'donationDetails'])->name('donation-details');
-Route::get('/article/{id}', [MainController::class, 'showArticle'])->name('article-details');
-Route::get('/myFavourites/', [MainController::class, 'myFavourites'])->name('myFavourites');
 Route::get('/articles', [MainController::class, 'showArticles'])->name('articles');
 Route::post('/clientLogin', [AuthController::class, 'clientLogin'])->name('clientLogin');
 Route::get('/', [MainController::class, 'mainPage'])->name('HomePage');
@@ -44,20 +38,19 @@ Route::get('/', [MainController::class, 'mainPage'])->name('HomePage');
 Route::middleware('auth:client')->group(function () {
     Route::post('/post-favourite', [MainController::class, 'toggleFavourite'])->name('post-favourite');
     Route::post('/clientlogout', [AuthController::class, 'clientLogout'])->name('clientLogout');
+    Route::get('/donation-details/{id}', [MainController::class, 'donationDetails'])->name('donation-details');
+    Route::get('/article/{id}', [MainController::class, 'showArticle'])->name('article-details');
+    Route::get('/myFavourites/', [MainController::class, 'myFavourites'])->name('myFavourites');
+    Route::post('/contact', [MainController::class, 'contact'])->name('contact.store');
+    Route::get('/contact-us', function () {return view('front.contact-us');})->name('contact-us');
+    Route::get('/who-are-us', function () {return view('front.who-are-us');})->name('who-are-us');
+    Route::get('/donation-requests', [MainController::class, 'donationRequests'])->name('donation-requests');
 });
 
-Route::post('/contact', [MainController::class, 'contact'])->name('contact.store');
-Route::get('/contact-us', function () {return view('front.contact-us');})->name('contact-us');
-Route::get('/who-are-us', function () {return view('front.who-are-us');})->name('who-are-us');
-Route::get('/donation-requests', [MainController::class, 'donationRequests'])->name('donation-requests');
-//Route::get('/donation-requests', function () {return view('front.donation-requests');})->name('donation-requests');
-//Route::get('/cities', [MainController::class, 'getCities']);
-
-////////////////////
-// Login route
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 
 //Admin panel
+// Login route
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 
 Route::group(['middleware' => ['auth:sanctum', 'check-permissions'], 'prefix' => 'admin'], function () {
     Route::get('/home', function () {return view('home');})->name('home');
