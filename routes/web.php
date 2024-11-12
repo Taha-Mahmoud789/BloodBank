@@ -73,11 +73,7 @@ Route::get('clients-activate/{id}', [ClientController::class, 'activate'])->name
 Route::get('clients-deactivate/{id}', [ClientController::class, 'deactivate'])->name('clients.deactivate');
 Route::get('clients-toggle-activation/{id}', [ClientController::class, 'toggleActivation'])->name('clients.toggle-activation');
 
-
 Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
-
-
-
